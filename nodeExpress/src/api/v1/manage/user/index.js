@@ -1,48 +1,5 @@
 
-const userInfo = {
-    name: {
-        required: true,
-        type: /^[\w\d\u4e00-\u9fa5]{3,32}$/,
-        message: '账号只能是字母、数字、中文、手机号、邮箱'
-    },
-    password: {
-        required: true,
-        type: /^[\w\d]{6,32}$/,
-        message: '密码不符合规则'
-    },
-    createTime: {
-        required: true,
-        type: Date,
-        default: Date.now()
-    },
-    imgurl: null,
-    phone: {
-        required: false,
-        type: 'phone',
-        message: '请输入正确的手机号'
-    },
-    email: {
-        type: 'email',
-        message: '请输入正确的Email地址'
-    },
-    qq: Number,
-    wechat: null,
-    age: Number,
-    city: null,
-    country: null,
-    address: null,
-    uid: 'uid',
-    sex: {
-        type: /[123]/,
-        message: '请输入合法性别',
-        default: 0
-    },
-    role: {
-        admin: Array,
-        user: Array,
-        other: Array
-    }, // 权限
-}
+
 
 module.exports = function (req, res, config) {
     try {
@@ -54,9 +11,21 @@ module.exports = function (req, res, config) {
 }
 // 查询所有用户信息
 function get(req, res, config) {
+    let find = req.query.search ? {
+        $or: [
+            { name: { $regex: req.query.search, $options: 'i' } },
+            { userName: { $regex: req.query.search, $options: 'i' } },
+            { phone: { $regex: req.query.search, $options: 'i' } },
+            { email: { $regex: req.query.search, $options: 'i' } },
+            { age: { $regex: req.query.search, $options: 'i' } },
+            { address: { $regex: req.query.search, $options: 'i' } },
+            { city: { $regex: req.query.search, $options: 'i' } }
+        ]
+    } : {};
     res.ApiDb.query({
-        table: 'user',
-        // 这里还差分页查询
+        table: config.db.table.user,
+        skip: req.query.page || 0,
+        find,
     }, (err, db) => {
         if (err) {
             res.error(500);
@@ -67,12 +36,45 @@ function get(req, res, config) {
 }
 // 添加用户
 function post(req, res, config) {
+    console.log(req.body)
+    // let isError = res.ApiExp()
+    // if()
     res.send('manage - post')
 }
 // 删除用户
 function del(req, res, config) {
-    res.send('manage - del')
+    // console.log(res.userInfo._id, req.query)
+    if (res.userInfo.id == req.query.id) {
+        res.info('删除失败');
 
+    } else {
+        if (!req.query.id) {
+            res.info('id不能为空');
+            return;
+        }
+        res.ApiDb.find({
+            table: config.db.table.user,
+            find: { id: req.query.id }
+        }, (err, userInfo) => {
+            if (err) { res.info('未找到资源'); return }
+            res.ApiDb.del({
+                table: config.db.table.user,
+                find: { id: req.query.id }
+            }, (err, db) => {
+                if (db.n == 0) {
+                    res.info('未找到资源')
+                }
+                if (db.n > 0) {
+                    res.succress({
+                        delNumber: db.n, log: {
+                            message: '删除用户',
+                            delUserInfo: userInfo[0]
+                        }
+                    })
+                }
+            })
+        })
+    }
 }
 // 更新用户信息
 function put(req, res, config) {

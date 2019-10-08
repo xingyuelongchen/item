@@ -51,7 +51,7 @@
                     </template>
                 </el-menu>
             </el-aside>
-            <el-main  v-loading="isLoading">
+            <el-main v-loading="isLoading">
                 <el-row>
                     <el-col>
                         <router-view />
@@ -66,9 +66,7 @@
 import admin from "../../router/admin";
 import { mapState } from "vuex";
 export default {
-    components: {
-        navList: () => import("@/views/admin/comPublic/navList.vue")
-    },
+    components: {},
     data() {
         return {
             isCollapse: false,
@@ -116,7 +114,6 @@ export default {
         ...mapState(["isLoading"])
     },
     methods: {
-      
         handleOpen(a) {
             console.log(a);
             console.log(admin);

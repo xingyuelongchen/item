@@ -6,15 +6,15 @@ module.exports = function (req, res, config) {
     }
 }
 function get(req, res, config) {
-    res.send('index - get')
+    res.succress('index - get')
 }
 function post(req, res, config) {
-    res.send('index - post')
+    res.succress('index - post')
 }
 function del(req, res, config) {
-    res.send('index - del')
+    res.succress('index - del')
 
 }
 function put(req, res, config) {
-    res.send('index - put')
+    res.succress('index - put')
 }

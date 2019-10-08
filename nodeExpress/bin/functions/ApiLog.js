@@ -11,7 +11,7 @@ function setlog(req, data) {
         content: data,
         ip: req.connection.remoteAddress,
         user_id: this.userInfo._id,
-        type: data.type,
+        type: req.method,
         message: data.message
     }
     return new Promise((resolve, reject) => {

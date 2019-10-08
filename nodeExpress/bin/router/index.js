@@ -5,9 +5,11 @@ const router = require('express').Router();
 const fs = require('fs');
 const md5 = require('md5');
 const path = require('path');
+const URL = require('url');
 
-// 请求头操作
+
 router.use((req, res, next) => {
+
     // 跨域设置
     res.header({
         // "Access-Control-Allow-Origin": req.headers.origin, // 允许跨域请求的地址
@@ -56,24 +58,19 @@ router.use((req, res, next) => {
             this.setlog(data.log).then(e => {
                 typeof data == 'object' ? data = { ...data } : '';
                 delete data.log;
-                this.status(200).send({ code: 200, message: 'ok', data })
+                this.status(200).send({ code: 200, message: 'ok', content: data })
             }).catch(err => {
                 console.log(err);
                 console.error('Error: ', __dirname);
                 delete data.log;
                 typeof data == 'object' ? data = { ...data } : '';
-                this.status(200).send({ code: 200, message: '请求处理完成，日志记录写入失败', data })
+                this.status(200).send({ code: 200, message: '请求处理完成，日志记录写入失败', content: data })
             })
         } else {
             typeof data == 'object' ? data = { ...data } : '';
-            this.status(200).send({ code: 200, message: 'ok', data })
+            this.status(200).send({ code: 200, message: 'ok', content: data })
         }
     }
-
-    req.body = {
-        Files: req.files,
-        ...req.fields,
-    };
     next();
 
 })
@@ -84,9 +81,10 @@ router.use(token);
 
 // 挂载 模块 路由
 router.all('/*', (req, res, next) => {
-    let Path = path.resolve(config.rootSrc + req.url, './index.js');
-    if (fs.existsSync(config.rootSrc + req.url) && fs.existsSync(Path)) {
-        require(config.rootSrc + req.url)(req, res, config)
+    let urlPath = URL.parse(req.url);
+    let Path = path.resolve(config.rootSrc + urlPath.pathname, './index.js');
+    if (fs.existsSync(Path) && fs.existsSync(Path)) {
+        require(Path)(req, res, config)
     } else {
         next()
     }
@@ -117,7 +115,7 @@ function token(req, res, next) {
                         value: { maxAge: Date.now() + 24 * 7 * 60 * 60 * 1000 }
                     })
                 }
-                res.userInfo = data.user;
+                res.userInfo = data[0].user;
                 next()
             } else {
                 res.error(450)

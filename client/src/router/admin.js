@@ -9,7 +9,7 @@ export default [
         // meta: { 
         //  requiresAuth: true, 判断是否登陆才可访问
         // },
-        component: () => import('@/views/admin/home/index.vue')
+        component: () => import('@/views/admin/home')
     },
     {
         path: 'user',
@@ -18,7 +18,7 @@ export default [
         role: 1, meta: {
             requiresAuth: true,
         },
-        component: () => import('@/views/admin/user/index.vue'),
+        component: () => import('@/views/admin/user'),
         children: [
             {
                 path: 'user',
@@ -28,7 +28,7 @@ export default [
                 meta: {
                     requiresAuth: true,
                 },
-                component: () => import('@/views/admin/user/user.vue'),
+                component: () => import('@/views/admin/user/list'),
             }
         ]
     }

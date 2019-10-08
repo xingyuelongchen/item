@@ -1,61 +1,12 @@
 const md5 = require('md5');
-/**
- * 用户注册验证表
- */
-const userInfo = {
-    name: {
-        required: true,
-        type: /^[\w\d\u4e00-\u9fa5]{3,32}$/,
-        message: '账号只能是字母、数字、中文、手机号、邮箱'
-    },
-    password: {
-        required: true,
-        type: /^[\w\d]{6,32}$/,
-        message: '密码不符合规则'
-    },
-    createTime: {
-        required: true,
-        type: Date,
-        default: Date.now()
-    },
-    imgurl: null,
-    phone: {
-        required: false,
-        type: 'phone',
-        message: '请输入正确的手机号'
-    },
-    email: {
-        type: 'email',
-        message: '请输入正确的Email地址'
-    },
-    qq: Number,
-    wechat: null,
-    age: Number,
-    city: null,
-    country: null,
-    address: null,
-    uid: 'uid',
-    sex: {
-        type: /[123]/,
-        message: '请输入合法性别',
-        default: 0
-    },
-    role: {
-        admin: Array,
-        user: Array,
-        other: Array
-    }, // 权限
-}
-
-
-
-
 
 // 用户注册
 function post(req, res, config) {
     let { name, password } = req.body;
 
-    let isError = res.ApiExp({ name, password }, userInfo)
+    let isError = res.ApiExp({ name, password }, res.ApiTable.userInfo);
+    let userInfo = isError.toData;
+
     if (isError.error) {
         res.info(isError.message);
         return;
@@ -66,18 +17,18 @@ function post(req, res, config) {
     } else if (!res.ApiExp(name, 'phone').error) {
         userInfo.name = name;
         userInfo.phone = name;
+    } else if (name === password) {
+        res.info('密码不能与用户名相同')
     }
     res.ApiDb.find({
         table: config.db.table.user,
-        find: { name },
+        find: { $or: [{ name }, { phone: name }, { email: name }] },
     }, (err, data, count) => {
+
         if (data.length > 1) {
             res.info('该账号已存在，请重新输入')
         } else {
-            // 验证密码
-            if (name === password) {
-                res.info('密码格式不能与用户名相同')
-            } else if (res.ApiExp(password, /^[\w\d]{6,32}$/).error) {
+            if (res.ApiExp(password, /^[\w\d]{6,32}$/).error) {
                 res.info('密码格式不正确，只能是6-32位字母和数字')
                 return;
             }

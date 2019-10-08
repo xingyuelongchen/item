@@ -78,7 +78,7 @@ function query(option, fn) {
         const table = option.table || '';
         const find = option.find || {};
         const sort = option.sort || {};
-        const skip = option.skip || 0;
+        const skip = option.skip*20 || 0;
         const limit = option.limit || 20;
         database((db) => {
             db.collection(table).find(find).count().then(totalPages => {

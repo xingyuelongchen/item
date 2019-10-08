@@ -1,4 +1,3 @@
-
 module.exports = exp;
 
 /**
@@ -9,11 +8,18 @@ module.exports = exp;
  */
 function exp(a, b) {
     // 初始化用到的变量
-    let data = {}, type = {}, err = {}, rule = '', ErrorInfo = 'null';
+    let data = {},
+        type = {},
+        err = {},
+        rule = '',
+        ErrorInfo = 'null',
+        toData = {};
     if (typeof a !== 'object' || typeof b !== 'object') {
         // 只传入被验证的值和规则
         data[a] = a;
-        type[a] = { type: b }
+        type[a] = {
+            type: b
+        }
     } else {
         // 传入多个验证对象时
         data = a;
@@ -21,35 +27,44 @@ function exp(a, b) {
     }
     // 遍历规则列表
     for (let k in type) {
-
         // 判断当前规则是否为多重验证。
         if (type[k] && (typeof type[k] == 'object')) {
 
             // 嵌套验证对象
             if ((!type[k].type) && (!type[k].required) && (!type[k].default) && (!type[k].message)) {
+                let obj = {};
                 for (let v in type[k]) {
                     // 嵌套属性值为对象，则继续执行
-                    if (typeof type[k][v] === 'object') {
+                    if (type[k][v] && typeof type[k][v] == 'object') {
                         let isFn = exp(data[k], type[k]);
                         if (isFn.error) {
-                            err[k] = isFn.message
+                            err[k] = isFn.message;
                         }
+                        toData[k] = isFn.data;
+                        continue;
                     } else {
-                        // 嵌套不是对象，则返回错误信息
-                        err[k] = `"${v}" validation rules in "${k}" are not expected`
+                        if (data[k] && data[k][v]) {
+                            obj[v] = data[k][v]
+                        } else {
+                            obj[v] = null
+                        }
                     }
                 }
-
+                toData[k] = obj;
+                continue;
             }
             // 写入默认值
             if (type[k].default) {
                 if ((typeof type[k].default == 'object' && typeof type[k].default != 'function')) {
                     err[k] = 'Set ' + k + ' default value. Use function return values for reference types, such as：()=>[]'
-                } else if (!data[k]) {
+                } else if (!data[k] && typeof type[k].default != 'function') {
                     data[k] = type[k].default;
+                } else if (!data[k] && typeof type[k].default == 'function') {
+                    data[k] = type[k].default()
                 }
-
             }
+
+            toData[k] = data[k] || null;
             // 验证必填
             if (type[k].required && (data[k] == null || data[k] == undefined)) {
                 err[k] = type[k].message || k + 'is not null'
@@ -66,18 +81,18 @@ function exp(a, b) {
             }
 
         } else {
+            toData[k] = data[k] || null;
             // 忽略为空验证
             if (!type[k] || !data[k]) {
                 continue;
             }
         }
+
         // 转换验证规则
         type[k].type ? rule = type[k].type : rule = type[k];
         typeof rule == 'string' ? rule = rule.toLowerCase() : rule;
         // 错误类型信息
         ErrorInfo = (data[k] ? typeof data[k] : data[k]);
-
-
         // 自定义正则验证
         if (rule.constructor == RegExp && !rule.test(data[k])) {
             err[k] = type[k].message || '自定义规则验证失败'
@@ -133,7 +148,12 @@ function exp(a, b) {
             continue;
         }
     };
-    return { data, error: JSON.stringify(err) == '{}' ? false : true, message: err }
+    return {
+        data,
+        toData,
+        error: JSON.stringify(err) == '{}' ? false : true,
+        message: err
+    }
 }
 
 // // 使用方法
