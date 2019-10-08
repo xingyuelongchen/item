@@ -1,0 +1,63 @@
+2019-09-05T08:59:27.760+0800 I  CONTROL  [main] Automatically disabling TLS 1.0, to force-enable TLS 1.0 specify --sslDisabledProtocols 'none'
+2019-09-05T08:59:27.784+0800 I  CONTROL  [initandlisten] MongoDB starting : pid=694 port=27017 dbpath=database/db 64-bit host=emcoo-50deiMac.local
+2019-09-05T08:59:27.784+0800 I  CONTROL  [initandlisten] db version v4.2.0
+2019-09-05T08:59:27.784+0800 I  CONTROL  [initandlisten] git version: a4b751dcf51dd249c5865812b390cfd1c0129c30
+2019-09-05T08:59:27.784+0800 I  CONTROL  [initandlisten] allocator: system
+2019-09-05T08:59:27.784+0800 I  CONTROL  [initandlisten] modules: none
+2019-09-05T08:59:27.784+0800 I  CONTROL  [initandlisten] build environment:
+2019-09-05T08:59:27.784+0800 I  CONTROL  [initandlisten]     distarch: x86_64
+2019-09-05T08:59:27.784+0800 I  CONTROL  [initandlisten]     target_arch: x86_64
+2019-09-05T08:59:27.784+0800 I  CONTROL  [initandlisten] options: { storage: { dbPath: "database/db" }, systemLog: { destination: "file", path: "database/log/mongodb.log" } }
+2019-09-05T08:59:27.790+0800 W  STORAGE  [initandlisten] Detected unclean shutdown - database/db/mongod.lock is not empty.
+2019-09-05T08:59:27.801+0800 I  STORAGE  [initandlisten] Detected data files in database/db created by the 'wiredTiger' storage engine, so setting the active storage engine to 'wiredTiger'.
+2019-09-05T08:59:27.801+0800 W  STORAGE  [initandlisten] Recovering data from the last clean checkpoint.
+2019-09-05T08:59:27.801+0800 I  STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=3584M,cache_overflow=(file_max=0M),session_max=33000,eviction=(threads_min=4,threads_max=4),config_base=false,statistics=(fast),log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000),statistics_log=(wait=0),verbose=[recovery_progress,checkpoint_progress],
+2019-09-05T08:59:29.072+0800 I  STORAGE  [initandlisten] WiredTiger message [1567645169:72944][694:0x7fffac11c3c0], txn-recover: Recovering log 1 through 2
+2019-09-05T08:59:29.110+0800 I  STORAGE  [initandlisten] WiredTiger message [1567645169:110982][694:0x7fffac11c3c0], txn-recover: Recovering log 2 through 2
+2019-09-05T08:59:29.663+0800 I  STORAGE  [initandlisten] WiredTiger message [1567645169:663284][694:0x7fffac11c3c0], txn-recover: Main recovery loop: starting at 1/64640 to 2/256
+2019-09-05T08:59:29.664+0800 I  STORAGE  [initandlisten] WiredTiger message [1567645169:664036][694:0x7fffac11c3c0], txn-recover: Recovering log 1 through 2
+2019-09-05T08:59:29.737+0800 I  STORAGE  [initandlisten] WiredTiger message [1567645169:737202][694:0x7fffac11c3c0], txn-recover: Recovering log 2 through 2
+2019-09-05T08:59:29.772+0800 I  STORAGE  [initandlisten] WiredTiger message [1567645169:772894][694:0x7fffac11c3c0], txn-recover: Set global recovery timestamp: (0,0)
+2019-09-05T08:59:30.594+0800 I  RECOVERY [initandlisten] WiredTiger recoveryTimestamp. Ts: Timestamp(0, 0)
+2019-09-05T08:59:30.895+0800 I  STORAGE  [initandlisten] Timestamp monitor starting
+2019-09-05T08:59:30.924+0800 I  CONTROL  [initandlisten] 
+2019-09-05T08:59:30.924+0800 I  CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2019-09-05T08:59:30.925+0800 I  CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2019-09-05T08:59:30.925+0800 I  CONTROL  [initandlisten] 
+2019-09-05T08:59:30.925+0800 I  CONTROL  [initandlisten] ** WARNING: This server is bound to localhost.
+2019-09-05T08:59:30.925+0800 I  CONTROL  [initandlisten] **          Remote systems will be unable to connect to this server. 
+2019-09-05T08:59:30.925+0800 I  CONTROL  [initandlisten] **          Start the server with --bind_ip <address> to specify which IP 
+2019-09-05T08:59:30.925+0800 I  CONTROL  [initandlisten] **          addresses it should serve responses from, or with --bind_ip_all to
+2019-09-05T08:59:30.925+0800 I  CONTROL  [initandlisten] **          bind to all interfaces. If this behavior is desired, start the
+2019-09-05T08:59:30.925+0800 I  CONTROL  [initandlisten] **          server with --bind_ip 127.0.0.1 to disable this warning.
+2019-09-05T08:59:30.927+0800 I  CONTROL  [initandlisten] 
+2019-09-05T08:59:30.946+0800 I  SHARDING [initandlisten] Marking collection local.system.replset as collection version: <unsharded>
+2019-09-05T08:59:30.984+0800 I  STORAGE  [initandlisten] Flow Control is enabled on this deployment.
+2019-09-05T08:59:30.986+0800 I  SHARDING [initandlisten] Marking collection admin.system.roles as collection version: <unsharded>
+2019-09-05T08:59:30.988+0800 I  SHARDING [initandlisten] Marking collection admin.system.version as collection version: <unsharded>
+2019-09-05T08:59:30.993+0800 I  SHARDING [initandlisten] Marking collection local.startup_log as collection version: <unsharded>
+2019-09-05T08:59:30.993+0800 I  FTDC     [initandlisten] Initializing full-time diagnostic data capture with directory 'database/db/diagnostic.data'
+2019-09-05T08:59:30.995+0800 I  SHARDING [LogicalSessionCacheRefresh] Marking collection config.system.sessions as collection version: <unsharded>
+2019-09-05T08:59:30.995+0800 I  NETWORK  [initandlisten] Listening on /tmp/mongodb-27017.sock
+2019-09-05T08:59:30.995+0800 I  NETWORK  [initandlisten] Listening on 127.0.0.1
+2019-09-05T08:59:30.995+0800 I  NETWORK  [initandlisten] waiting for connections on port 27017
+2019-09-05T08:59:30.995+0800 I  SHARDING [LogicalSessionCacheReap] Marking collection config.transactions as collection version: <unsharded>
+2019-09-05T08:59:31.087+0800 I  FTDC     [ftdc] Unclean full-time diagnostic data capture shutdown detected, found interim file, some metrics may have been lost. OK
+2019-09-05T09:00:32.416+0800 I  CONTROL  [signalProcessingThread] got signal 2 (Interrupt: 2), will terminate after current cmd ends
+2019-09-05T09:00:32.419+0800 I  NETWORK  [signalProcessingThread] shutdown: going to close listening sockets...
+2019-09-05T09:00:32.419+0800 I  NETWORK  [signalProcessingThread] removing socket file: /tmp/mongodb-27017.sock
+2019-09-05T09:00:32.419+0800 I  -        [signalProcessingThread] Stopping further Flow Control ticket acquisitions.
+2019-09-05T09:00:32.420+0800 I  CONTROL  [signalProcessingThread] Shutting down free monitoring
+2019-09-05T09:00:32.420+0800 I  FTDC     [signalProcessingThread] Shutting down full-time diagnostic data capture
+2019-09-05T09:00:32.421+0800 I  STORAGE  [signalProcessingThread] Deregistering all the collections
+2019-09-05T09:00:32.421+0800 I  STORAGE  [signalProcessingThread] Timestamp monitor shutting down
+2019-09-05T09:00:32.421+0800 I  STORAGE  [signalProcessingThread] WiredTigerKVEngine shutting down
+2019-09-05T09:00:32.421+0800 I  STORAGE  [signalProcessingThread] Shutting down session sweeper thread
+2019-09-05T09:00:32.421+0800 I  STORAGE  [signalProcessingThread] Finished shutting down session sweeper thread
+2019-09-05T09:00:32.421+0800 I  STORAGE  [signalProcessingThread] Shutting down journal flusher thread
+2019-09-05T09:00:32.500+0800 I  STORAGE  [signalProcessingThread] Finished shutting down journal flusher thread
+2019-09-05T09:00:32.501+0800 I  STORAGE  [signalProcessingThread] Shutting down checkpoint thread
+2019-09-05T09:00:32.501+0800 I  STORAGE  [signalProcessingThread] Finished shutting down checkpoint thread
+2019-09-05T09:00:33.346+0800 I  STORAGE  [signalProcessingThread] shutdown: removing fs lock...
+2019-09-05T09:00:33.348+0800 I  CONTROL  [signalProcessingThread] now exiting
+2019-09-05T09:00:33.348+0800 I  CONTROL  [signalProcessingThread] shutting down with code:0

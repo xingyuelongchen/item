@@ -1,0 +1,13 @@
+2019-09-04T18:14:48.528+0800 I  CONTROL  [main] Automatically disabling TLS 1.0, to force-enable TLS 1.0 specify --sslDisabledProtocols 'none'
+2019-09-04T18:14:48.545+0800 I  CONTROL  [initandlisten] MongoDB starting : pid=7270 port=27017 dbpath=database/db 64-bit host=emcoo-50deiMac.local
+2019-09-04T18:14:48.545+0800 I  CONTROL  [initandlisten] db version v4.2.0
+2019-09-04T18:14:48.545+0800 I  CONTROL  [initandlisten] git version: a4b751dcf51dd249c5865812b390cfd1c0129c30
+2019-09-04T18:14:48.545+0800 I  CONTROL  [initandlisten] allocator: system
+2019-09-04T18:14:48.545+0800 I  CONTROL  [initandlisten] modules: none
+2019-09-04T18:14:48.545+0800 I  CONTROL  [initandlisten] build environment:
+2019-09-04T18:14:48.545+0800 I  CONTROL  [initandlisten]     distarch: x86_64
+2019-09-04T18:14:48.545+0800 I  CONTROL  [initandlisten]     target_arch: x86_64
+2019-09-04T18:14:48.545+0800 I  CONTROL  [initandlisten] options: { storage: { dbPath: "database/db" }, systemLog: { destination: "file", path: "database/log/mongodb.log" } }
+2019-09-04T18:14:48.545+0800 E  STORAGE  [initandlisten] Failed to set up listener: SocketException: Address already in use
+2019-09-04T18:14:48.545+0800 I  CONTROL  [initandlisten] now exiting
+2019-09-04T18:14:48.545+0800 I  CONTROL  [initandlisten] shutting down with code:48
