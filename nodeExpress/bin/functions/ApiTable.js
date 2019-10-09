@@ -1,4 +1,3 @@
-
 module.exports = {
 
     // 用户表
@@ -9,7 +8,7 @@ module.exports = {
         userName: null,
         name: {
             required: true,
-            type: /^[\w\d\u4e00-\u9fa5]{3,32}$/,
+            type: /^[\w\d\u4e00-\u9fa5]{2,32}$/,
             message: '账号只能是字母、数字、中文、手机号、邮箱'
         },
         password: {
@@ -42,6 +41,10 @@ module.exports = {
             type: /[012]/,
             message: '请输入合法性别',
             default: 0
+        },
+        admin: {
+            user: null,
+            a: null
         },
         role: {
             genre: {

@@ -10,8 +10,7 @@ function setlog(req, data) {
         createTime: Date.now(),
         content: data,
         ip: req.connection.remoteAddress,
-        user_id: this.userInfo._id,
-        type: req.method,
+        user_id: this.userInfo.id,
         message: data.message
     }
     return new Promise((resolve, reject) => {

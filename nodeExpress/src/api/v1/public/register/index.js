@@ -6,16 +6,13 @@ function post(req, res, config) {
 
     let isError = res.ApiExp({ name, password }, res.ApiTable.userInfo);
     let userInfo = isError.toData;
-
     if (isError.error) {
         res.info(isError.message);
         return;
     }
     if (!res.ApiExp(name, 'email').error) {
-        userInfo.name = name;
         userInfo.email = name;
     } else if (!res.ApiExp(name, 'phone').error) {
-        userInfo.name = name;
         userInfo.phone = name;
     } else if (name === password) {
         res.info('密码不能与用户名相同')

@@ -20,6 +20,7 @@ const config = {
     },
     error: {
         404: `404 - 资源未找到. Server Error`,
+        405: `405 - 权限不足，请联系管理员`,
         450: `450 - 请重新登陆.`,
         500: `500 - 处理程序未定义. Server Error`,
         501: `501 - Token 验证失败. Server Error`,

@@ -14,6 +14,7 @@ export default new Router({
     // 公共路由
     {
       path: '/',
+      redirect:'/admin',
       component: () => import('@/views/admin/index.vue'),
       children: [
         ...publics

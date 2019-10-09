@@ -9,22 +9,24 @@ const URL = require('url');
 
 
 router.use((req, res, next) => {
+    // console.log(req.headers);
 
     // 跨域设置
     res.header({
-        // "Access-Control-Allow-Origin": req.headers.origin, // 允许跨域请求的地址
-        "Access-Control-Allow-Origin": 'http://192.168.1.101:8080', // 允许跨域请求的地址
-        "Access-Control-Allow-Method": "GET,POST,PUT,DELETE,OPTIONS",
+        "Access-Control-Allow-Origin": req.headers.origin, // 允许跨域请求的地址
+        // "Access-Control-Allow-Origin": 'http://192.168.1.101:8080', // 允许跨域请求的地址
+        "Access-Control-Allow-Methods": "DELETE,GET,POST,PUT,OPTIONS",
         "Access-Control-Allow-Credentials": true,
-        "Access-Control-Allow-Headers": "Origin, X-Requested-With,Accept, Content-Type,token,uid_id",
+        "Access-Control-Allow-Headers": "Origin, X-Requested-With, Accept, Content-Type, token, uid_id",
         "Access-Control-Max-Age": '10000',
     });
     // 预检请求返回
     if (req.method.toLowerCase() == 'options') {
-        res.send();
+        res.sendStatus(200);
         return;
         // next();
     }
+
     for (let k in api) {
         res[k] = api[k];
     }
@@ -34,41 +36,79 @@ router.use((req, res, next) => {
     }
     res.error = function (code) {
         let text = config.error[code]
-        this.status(code).send({ code, message: text })
+        this.status(code).send({
+            code,
+            message: text
+        })
     }
     res.info = function (data) {
         if (data.log) {
             this.setlog(data.log).then(e => {
-                typeof data == 'object' ? data = { ...data } : '';
+                // typeof data == 'object' ? data = {
+                //     ...data
+                // } : data={message:data};
                 delete data.log;
-                this.status(400).send({ code: 400, message: data })
+                this.status(400).send({
+                    code: 400,
+                    message: data
+                })
             }).catch(e => {
                 console.log(err);
                 console.log('Error: ', __dirname);
-                typeof data == 'object' ? data = { ...data } : '';
+                // typeof data == 'object' ? data = {
+                //     ...data
+                // } : data={message:data};
+                // console.log(data)
                 delete data.log;
-                this.status(400).send({ code: 400, message: data, log: '日志记录写入失败' })
+                this.status(400).send({
+                    code: 400,
+                    message: data,
+                    log: '日志记录写入失败'
+                })
             });
         } else {
-            this.status(400).send({ code: 400, message: data })
+            this.status(400).send({
+                code: 400,
+                message: typeof data == 'object' ? data : {
+                    message: data
+                }
+            })
         }
     }
     res.succress = function (data) {
         if (data.log) {
             this.setlog(data.log).then(e => {
-                typeof data == 'object' ? data = { ...data } : '';
+                typeof data == 'object' ? data = {
+                    ...data
+                } : '';
                 delete data.log;
-                this.status(200).send({ code: 200, message: 'ok', content: data })
+                this.status(200).send({
+                    code: 200,
+                    message: 'ok',
+                    content: data
+                })
             }).catch(err => {
                 console.log(err);
                 console.error('Error: ', __dirname);
                 delete data.log;
-                typeof data == 'object' ? data = { ...data } : '';
-                this.status(200).send({ code: 200, message: '请求处理完成，日志记录写入失败', content: data })
+                typeof data == 'object' ? data = {
+                    ...data
+                } : '';
+                this.status(200).send({
+                    code: 200,
+                    message: '请求处理完成，日志记录写入失败',
+                    content: data
+                })
             })
         } else {
-            typeof data == 'object' ? data = { ...data } : '';
-            this.status(200).send({ code: 200, message: 'ok', content: data })
+            typeof data == 'object' ? data = {
+                ...data
+            } : '';
+            this.status(200).send({
+                code: 200,
+                message: 'ok',
+                content: data
+            })
         }
     }
     next();
@@ -83,6 +123,7 @@ router.use(token);
 router.all('/*', (req, res, next) => {
     let urlPath = URL.parse(req.url);
     let Path = path.resolve(config.rootSrc + urlPath.pathname, './index.js');
+
     if (fs.existsSync(Path) && fs.existsSync(Path)) {
         require(Path)(req, res, config)
     } else {
@@ -93,6 +134,7 @@ router.all('/*', (req, res, next) => {
 
 
 module.exports = router;
+
 function token(req, res, next) {
     // 验证公共请求token
     // if (req.headers.token !== 'token') {
@@ -100,27 +142,55 @@ function token(req, res, next) {
     //     return;
     // }
 
+    // 删除过期uid_id
+    res.ApiDb.find({
+        table: config.db.table.uid_id,
+        find: {}
+    }, (err, data) => {
+        data.forEach(e => {
+            if (!err && e.maxAge < Date.now()) {
+                res.ApiDb.del({
+                    table: config.db.table.uid_id,
+                    find: {
+                        uid_id: e.uid_id
+                    }
+                })
+            }
+        })
+    })
     // 验证私密请求token
-    if (/(\/user|\/manage)/.test(req.url)) {
-
+    if (/(\/user\/|\/manage\/)/.test(req.url)) {
         res.ApiDb.find({
             table: config.db.table.uid_id,
-            find: { token: req.headers.uid_id }
+            find: {
+                uid_id: req.cookies.uid_id
+            }
         }, (err, data) => {
-            if (!err && data.length > 0 && data[0].maxAge > Date.now()) {
+            // 查询uid_id是否有效
+            if (!err && data.length > 0 && data[0].maxAge > Date.now() && data[0].uid_id == req.cookies.uid_id) {
+                // 验证当前用户是否有管理接口访问权限
+                if (!((/(\/manage\/)/.test(req.url) && (data[0].user.role.genre == 'admin') || data[0].user.role.genre == 'manage'))) {
+                    res.error(405)
+                    return;
+                }
+                // 如果uid_id快过期了，则自动更新
                 if (data[0].maxAge < (Date.now() + 4 * 24 * 60 * 60 * 1000)) {
                     res.ApiDb.update({
                         table: config.db.table.uid_id,
-                        find: { token: req.headers.uid_id },
-                        value: { maxAge: Date.now() + 24 * 7 * 60 * 60 * 1000 }
+                        find: {
+                            uid_id: req.cookies.uid_id
+                        },
+                        value: {
+                            maxAge: Date.now() + 24 * 7 * 60 * 60 * 1000
+                        }
                     })
                 }
                 res.userInfo = data[0].user;
                 next()
             } else {
                 res.error(450)
-                return
             }
+
         })
     } else {
         next()

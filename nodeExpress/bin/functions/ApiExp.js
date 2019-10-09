@@ -27,20 +27,31 @@ function exp(a, b) {
     }
     // 遍历规则列表
     for (let k in type) {
+
         // 判断当前规则是否为多重验证。
         if (type[k] && (typeof type[k] == 'object')) {
-
             // 嵌套验证对象
             if ((!type[k].type) && (!type[k].required) && (!type[k].default) && (!type[k].message)) {
                 let obj = {};
                 for (let v in type[k]) {
                     // 嵌套属性值为对象，则继续执行
-                    if (type[k][v] && typeof type[k][v] == 'object') {
-                        let isFn = exp(data[k], type[k]);
+                    if (type[k][v] != null && typeof type[k][v] == 'object') {
+                        let a = {};
+                        if (!data[k]) {
+                            // 如果当前data里面不存在，则吧验证规则中的数据导入到里面
+                            for (let j in type[k]) {
+                                if (j != 'type' && j != 'required' && j != 'default' && j != 'message') {
+                                    a[j] = null;
+                                }
+                            }
+                        } else {
+                            a = data[k]
+                        }
+                        let isFn = exp(a, type[k]);
                         if (isFn.error) {
                             err[k] = isFn.message;
                         }
-                        toData[k] = isFn.data;
+                        toData[k] = isFn.toData;
                         continue;
                     } else {
                         if (data[k] && data[k][v]) {
@@ -48,9 +59,13 @@ function exp(a, b) {
                         } else {
                             obj[v] = null
                         }
+
                     }
                 }
-                toData[k] = obj;
+                toData[k] = {
+                    ...toData[k],
+                    ...obj
+                };
                 continue;
             }
             // 写入默认值

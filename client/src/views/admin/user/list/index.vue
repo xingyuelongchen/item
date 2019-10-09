@@ -54,13 +54,13 @@ export default {
         async init() {
             this.$http({
                 url: "manage/user",
-                method: "get"
+                method: "get",
             })
                 .then(e => {
-                    if (e.status == 200) {
-                        this.tableData = e.data.content.data;
+                    if (e.code == 200) {
+                        this.tableData = e.content.data;
                     }
-                    console.log(e.data.content.data);
+                    console.log(e.content.data);
                 })
                 .catch(err => {
                     console.log(err);
@@ -69,8 +69,17 @@ export default {
         handleEdit(i, e) {
             console.log(i, e);
         },
-        handleDelete(i, e) {
-            console.log(i, e);
+        async handleDelete(i, e) {
+            let result = await this.$http({
+                url:"manage/user",
+                method:'delete',
+                params:{
+                    id:e.id
+                }
+            });
+            if(result && result.data.code == 200){
+                this.$message.succress(result.content.message);
+            }
         },
         onRequest() {},
         _Sex(row, column, cellValue, index) {

@@ -44,8 +44,9 @@ function post(req, res, config) {
 // 删除用户
 function del(req, res, config) {
     // console.log(res.userInfo._id, req.query)
+    console.log('sdfsfs')
     if (res.userInfo.id == req.query.id) {
-        res.info('删除失败');
+        res.info('删除失败,不能删除自己');
 
     } else {
         if (!req.query.id) {
@@ -56,16 +57,17 @@ function del(req, res, config) {
             table: config.db.table.user,
             find: { id: req.query.id }
         }, (err, userInfo) => {
-            if (err) { res.info('未找到资源'); return }
+            if (err) { res.info('未找到账号'); return }
             res.ApiDb.del({
                 table: config.db.table.user,
                 find: { id: req.query.id }
             }, (err, db) => {
                 if (db.n == 0) {
-                    res.info('未找到资源')
+                    res.info('未找到账号')
                 }
                 if (db.n > 0) {
                     res.succress({
+                        message:'删除完成',
                         delNumber: db.n, log: {
                             message: '删除用户',
                             delUserInfo: userInfo[0]
