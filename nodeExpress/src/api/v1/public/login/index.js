@@ -5,7 +5,7 @@ module.exports = function (req, res, config) {
         ({
             'post': post,
             'get': get
-        } [req.method.toLowerCase()])(req, res, config)
+        }[req.method.toLowerCase()])(req, res, config)
     } catch (error) {
         console.log(error)
         res.info('请求错误')
@@ -59,6 +59,7 @@ function post(req, res, config) {
         res.info(info.message)
         return;
     }
+
     let find = {
         table: 'user',
         find: {
@@ -71,7 +72,7 @@ function post(req, res, config) {
             }]
         }
     }
-    res.ApiDb.find(find, (err, d, count) => {
+    res.ApiDb.find(find, (err, d) => {
         if (d.length > 0 && d[0].password == res.ApiMD5(password)) {
             // 生成token
             let uid_id = res.ApiMD5(res.ApiMD5(d[0].password) + res.ApiMD5(d[0]._id));
@@ -106,7 +107,7 @@ function post(req, res, config) {
                 }
                 // 未登录，添加当前token
                 if (e.length == 0) {
-                    res.ApiDb.insert(config.db.table.uid_id, data, (err, data) => {})
+                    res.ApiDb.insert(config.db.table.uid_id, data, (err, data) => { })
                 }
                 // 已登录，更新token
                 if (e.length > 0) {
@@ -115,7 +116,7 @@ function post(req, res, config) {
                         find: { uid_id },
                         value: data
                     }
-                    res.ApiDb.update(option, (err, data) => {})
+                    res.ApiDb.update(option, (err, data) => { })
                 }
                 res.succress({
                     message: '登陆成功',

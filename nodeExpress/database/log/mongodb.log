@@ -1,95 +1,92 @@
-2019-10-09T10:54:34.083+0800 I  CONTROL  [main] Automatically disabling TLS 1.0, to force-enable TLS 1.0 specify --sslDisabledProtocols 'none'
-2019-10-09T10:54:34.101+0800 I  CONTROL  [initandlisten] MongoDB starting : pid=3336 port=27017 dbpath=/Volumes/Data/test/www/item/nodeExpress/database/db 64-bit host=emcoo-50deiMac.local
-2019-10-09T10:54:34.101+0800 I  CONTROL  [initandlisten] db version v4.2.0
-2019-10-09T10:54:34.101+0800 I  CONTROL  [initandlisten] git version: a4b751dcf51dd249c5865812b390cfd1c0129c30
-2019-10-09T10:54:34.101+0800 I  CONTROL  [initandlisten] allocator: system
-2019-10-09T10:54:34.101+0800 I  CONTROL  [initandlisten] modules: none
-2019-10-09T10:54:34.101+0800 I  CONTROL  [initandlisten] build environment:
-2019-10-09T10:54:34.101+0800 I  CONTROL  [initandlisten]     distarch: x86_64
-2019-10-09T10:54:34.101+0800 I  CONTROL  [initandlisten]     target_arch: x86_64
-2019-10-09T10:54:34.101+0800 I  CONTROL  [initandlisten] options: { storage: { dbPath: "/Volumes/Data/test/www/item/nodeExpress/database/db" }, systemLog: { destination: "file", path: "/Volumes/Data/test/www/item/nodeExpress/database/log/mongodb.log" } }
-2019-10-09T10:54:34.102+0800 W  STORAGE  [initandlisten] Detected unclean shutdown - /Volumes/Data/test/www/item/nodeExpress/database/db/mongod.lock is not empty.
-2019-10-09T10:54:34.102+0800 I  STORAGE  [initandlisten] Detected data files in /Volumes/Data/test/www/item/nodeExpress/database/db created by the 'wiredTiger' storage engine, so setting the active storage engine to 'wiredTiger'.
-2019-10-09T10:54:34.102+0800 W  STORAGE  [initandlisten] Recovering data from the last clean checkpoint.
-2019-10-09T10:54:34.102+0800 I  STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=3584M,cache_overflow=(file_max=0M),session_max=33000,eviction=(threads_min=4,threads_max=4),config_base=false,statistics=(fast),log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000),statistics_log=(wait=0),verbose=[recovery_progress,checkpoint_progress],
-2019-10-09T10:54:35.377+0800 I  STORAGE  [initandlisten] WiredTiger message [1570589675:377421][3336:0x7fffc809d3c0], txn-recover: Recovering log 1 through 16
-2019-10-09T10:54:35.421+0800 I  STORAGE  [initandlisten] WiredTiger message [1570589675:420992][3336:0x7fffc809d3c0], txn-recover: Recovering log 2 through 16
-2019-10-09T10:54:35.421+0800 E  STORAGE  [initandlisten] WiredTiger error (2) [1570589675:421050][3336:0x7fffc809d3c0], txn-recover: __posix_open_file, 712: /Volumes/Data/test/www/item/nodeExpress/database/db/journal/WiredTigerLog.0000000002: handle-open: open: No such file or directory Raw: [1570589675:421050][3336:0x7fffc809d3c0], txn-recover: __posix_open_file, 712: /Volumes/Data/test/www/item/nodeExpress/database/db/journal/WiredTigerLog.0000000002: handle-open: open: No such file or directory
-2019-10-09T10:54:35.421+0800 E  STORAGE  [initandlisten] WiredTiger error (-31802) [1570589675:421077][3336:0x7fffc809d3c0], txn-recover: __wt_txn_recover, 770: Recovery failed: WT_ERROR: non-specific WiredTiger error Raw: [1570589675:421077][3336:0x7fffc809d3c0], txn-recover: __wt_txn_recover, 770: Recovery failed: WT_ERROR: non-specific WiredTiger error
-2019-10-09T10:54:35.494+0800 E  STORAGE  [initandlisten] WiredTiger error (0) [1570589675:494365][3336:0x7fffc809d3c0], connection: __wt_cache_destroy, 386: cache server: exiting with 2 pages in memory and 0 pages evicted Raw: [1570589675:494365][3336:0x7fffc809d3c0], connection: __wt_cache_destroy, 386: cache server: exiting with 2 pages in memory and 0 pages evicted
-2019-10-09T10:54:35.494+0800 E  STORAGE  [initandlisten] WiredTiger error (0) [1570589675:494462][3336:0x7fffc809d3c0], connection: __wt_cache_destroy, 391: cache server: exiting with 13126 image bytes in memory Raw: [1570589675:494462][3336:0x7fffc809d3c0], connection: __wt_cache_destroy, 391: cache server: exiting with 13126 image bytes in memory
-2019-10-09T10:54:35.494+0800 E  STORAGE  [initandlisten] WiredTiger error (0) [1570589675:494493][3336:0x7fffc809d3c0], connection: __wt_cache_destroy, 395: cache server: exiting with 15206 bytes in memory Raw: [1570589675:494493][3336:0x7fffc809d3c0], connection: __wt_cache_destroy, 395: cache server: exiting with 15206 bytes in memory
-2019-10-09T10:54:35.495+0800 E  STORAGE  [initandlisten] WiredTiger error (0) [1570589675:495634][3336:0x7fffc809d3c0], connection: __wt_cache_destroy, 402: cache server: exiting with 14995 bytes dirty and 1 pages dirty Raw: [1570589675:495634][3336:0x7fffc809d3c0], connection: __wt_cache_destroy, 402: cache server: exiting with 14995 bytes dirty and 1 pages dirty
-2019-10-09T10:54:36.238+0800 I  STORAGE  [initandlisten] WiredTiger message [1570589676:238259][3336:0x7fffc809d3c0], txn-recover: Recovering log 1 through 17
-2019-10-09T10:54:36.286+0800 I  STORAGE  [initandlisten] WiredTiger message [1570589676:286404][3336:0x7fffc809d3c0], txn-recover: Recovering log 2 through 17
-2019-10-09T10:54:36.286+0800 E  STORAGE  [initandlisten] WiredTiger error (2) [1570589676:286475][3336:0x7fffc809d3c0], txn-recover: __posix_open_file, 712: /Volumes/Data/test/www/item/nodeExpress/database/db/journal/WiredTigerLog.0000000002: handle-open: open: No such file or directory Raw: [1570589676:286475][3336:0x7fffc809d3c0], txn-recover: __posix_open_file, 712: /Volumes/Data/test/www/item/nodeExpress/database/db/journal/WiredTigerLog.0000000002: handle-open: open: No such file or directory
-2019-10-09T10:54:36.286+0800 E  STORAGE  [initandlisten] WiredTiger error (-31802) [1570589676:286496][3336:0x7fffc809d3c0], txn-recover: __wt_txn_recover, 770: Recovery failed: WT_ERROR: non-specific WiredTiger error Raw: [1570589676:286496][3336:0x7fffc809d3c0], txn-recover: __wt_txn_recover, 770: Recovery failed: WT_ERROR: non-specific WiredTiger error
-2019-10-09T10:54:36.363+0800 E  STORAGE  [initandlisten] WiredTiger error (0) [1570589676:363572][3336:0x7fffc809d3c0], connection: __wt_cache_destroy, 386: cache server: exiting with 2 pages in memory and 0 pages evicted Raw: [1570589676:363572][3336:0x7fffc809d3c0], connection: __wt_cache_destroy, 386: cache server: exiting with 2 pages in memory and 0 pages evicted
-2019-10-09T10:54:36.363+0800 E  STORAGE  [initandlisten] WiredTiger error (0) [1570589676:363669][3336:0x7fffc809d3c0], connection: __wt_cache_destroy, 391: cache server: exiting with 13126 image bytes in memory Raw: [1570589676:363669][3336:0x7fffc809d3c0], connection: __wt_cache_destroy, 391: cache server: exiting with 13126 image bytes in memory
-2019-10-09T10:54:36.363+0800 E  STORAGE  [initandlisten] WiredTiger error (0) [1570589676:363701][3336:0x7fffc809d3c0], connection: __wt_cache_destroy, 395: cache server: exiting with 15206 bytes in memory Raw: [1570589676:363701][3336:0x7fffc809d3c0], connection: __wt_cache_destroy, 395: cache server: exiting with 15206 bytes in memory
-2019-10-09T10:54:36.363+0800 E  STORAGE  [initandlisten] WiredTiger error (0) [1570589676:363726][3336:0x7fffc809d3c0], connection: __wt_cache_destroy, 402: cache server: exiting with 14995 bytes dirty and 1 pages dirty Raw: [1570589676:363726][3336:0x7fffc809d3c0], connection: __wt_cache_destroy, 402: cache server: exiting with 14995 bytes dirty and 1 pages dirty
-2019-10-09T10:54:37.115+0800 I  STORAGE  [initandlisten] WiredTiger message [1570589677:115713][3336:0x7fffc809d3c0], txn-recover: Recovering log 1 through 18
-2019-10-09T10:54:37.157+0800 I  STORAGE  [initandlisten] WiredTiger message [1570589677:157250][3336:0x7fffc809d3c0], txn-recover: Recovering log 2 through 18
-2019-10-09T10:54:37.157+0800 E  STORAGE  [initandlisten] WiredTiger error (2) [1570589677:157307][3336:0x7fffc809d3c0], txn-recover: __posix_open_file, 712: /Volumes/Data/test/www/item/nodeExpress/database/db/journal/WiredTigerLog.0000000002: handle-open: open: No such file or directory Raw: [1570589677:157307][3336:0x7fffc809d3c0], txn-recover: __posix_open_file, 712: /Volumes/Data/test/www/item/nodeExpress/database/db/journal/WiredTigerLog.0000000002: handle-open: open: No such file or directory
-2019-10-09T10:54:37.157+0800 E  STORAGE  [initandlisten] WiredTiger error (-31802) [1570589677:157327][3336:0x7fffc809d3c0], txn-recover: __wt_txn_recover, 770: Recovery failed: WT_ERROR: non-specific WiredTiger error Raw: [1570589677:157327][3336:0x7fffc809d3c0], txn-recover: __wt_txn_recover, 770: Recovery failed: WT_ERROR: non-specific WiredTiger error
-2019-10-09T10:54:37.224+0800 E  STORAGE  [initandlisten] WiredTiger error (0) [1570589677:224370][3336:0x7fffc809d3c0], connection: __wt_cache_destroy, 386: cache server: exiting with 2 pages in memory and 0 pages evicted Raw: [1570589677:224370][3336:0x7fffc809d3c0], connection: __wt_cache_destroy, 386: cache server: exiting with 2 pages in memory and 0 pages evicted
-2019-10-09T10:54:37.224+0800 E  STORAGE  [initandlisten] WiredTiger error (0) [1570589677:224470][3336:0x7fffc809d3c0], connection: __wt_cache_destroy, 391: cache server: exiting with 13126 image bytes in memory Raw: [1570589677:224470][3336:0x7fffc809d3c0], connection: __wt_cache_destroy, 391: cache server: exiting with 13126 image bytes in memory
-2019-10-09T10:54:37.224+0800 E  STORAGE  [initandlisten] WiredTiger error (0) [1570589677:224501][3336:0x7fffc809d3c0], connection: __wt_cache_destroy, 395: cache server: exiting with 15206 bytes in memory Raw: [1570589677:224501][3336:0x7fffc809d3c0], connection: __wt_cache_destroy, 395: cache server: exiting with 15206 bytes in memory
-2019-10-09T10:54:37.224+0800 E  STORAGE  [initandlisten] WiredTiger error (0) [1570589677:224528][3336:0x7fffc809d3c0], connection: __wt_cache_destroy, 402: cache server: exiting with 14995 bytes dirty and 1 pages dirty Raw: [1570589677:224528][3336:0x7fffc809d3c0], connection: __wt_cache_destroy, 402: cache server: exiting with 14995 bytes dirty and 1 pages dirty
-2019-10-09T10:54:37.233+0800 W  STORAGE  [initandlisten] Failed to start up WiredTiger under any compatibility version.
-2019-10-09T10:54:37.233+0800 W  STORAGE  [initandlisten] WiredTiger metadata corruption detected
-2019-10-09T10:54:37.233+0800 F  STORAGE  [initandlisten] Please read the documentation for starting MongoDB with --repair here: http://dochub.mongodb.org/core/repair
-2019-10-09T10:54:37.233+0800 F  -        [initandlisten] Fatal Assertion 50944 at src/mongo/db/storage/wiredtiger/wiredtiger_kv_engine.cpp 777
-2019-10-09T10:54:37.233+0800 F  -        [initandlisten] 
+2019-10-11T00:13:57.464+0800 I CONTROL  [main] Automatically disabling TLS 1.0, to force-enable TLS 1.0 specify --sslDisabledProtocols 'none'
+2019-10-11T00:13:57.468+0800 I CONTROL  [initandlisten] MongoDB starting : pid=6008 port=27017 dbpath=database/db 64-bit host=DESKTOP-T4AIMLN
+2019-10-11T00:13:57.469+0800 I CONTROL  [initandlisten] targetMinOS: Windows 7/Windows Server 2008 R2
+2019-10-11T00:13:57.469+0800 I CONTROL  [initandlisten] db version v4.0.9
+2019-10-11T00:13:57.469+0800 I CONTROL  [initandlisten] git version: fc525e2d9b0e4bceff5c2201457e564362909765
+2019-10-11T00:13:57.469+0800 I CONTROL  [initandlisten] allocator: tcmalloc
+2019-10-11T00:13:57.470+0800 I CONTROL  [initandlisten] modules: none
+2019-10-11T00:13:57.470+0800 I CONTROL  [initandlisten] build environment:
+2019-10-11T00:13:57.471+0800 I CONTROL  [initandlisten]     distmod: 2008plus-ssl
+2019-10-11T00:13:57.471+0800 I CONTROL  [initandlisten]     distarch: x86_64
+2019-10-11T00:13:57.471+0800 I CONTROL  [initandlisten]     target_arch: x86_64
+2019-10-11T00:13:57.471+0800 I CONTROL  [initandlisten] options: { storage: { dbPath: "database/db" }, systemLog: { destination: "file", path: "database/log/mongodb.log" } }
+2019-10-11T00:13:57.476+0800 W STORAGE  [initandlisten] Detected unclean shutdown - database/db\mongod.lock is not empty.
+2019-10-11T00:13:57.481+0800 I STORAGE  [initandlisten] Detected data files in database/db created by the 'wiredTiger' storage engine, so setting the active storage engine to 'wiredTiger'.
+2019-10-11T00:13:57.482+0800 W STORAGE  [initandlisten] Recovering data from the last clean checkpoint.
+2019-10-11T00:13:57.482+0800 I STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=3540M,session_max=20000,eviction=(threads_min=4,threads_max=4),config_base=false,statistics=(fast),log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000),statistics_log=(wait=0),verbose=(recovery_progress),
+2019-10-11T00:13:57.563+0800 E STORAGE  [initandlisten] WiredTiger error (-31803) [1570724037:562616][6008:140721095134288], file:WiredTiger.wt, connection: __wt_turtle_read, 357: WiredTiger.turtle: fatal turtle file read error: WT_NOTFOUND: item not found Raw: [1570724037:562616][6008:140721095134288], file:WiredTiger.wt, connection: __wt_turtle_read, 357: WiredTiger.turtle: fatal turtle file read error: WT_NOTFOUND: item not found
+2019-10-11T00:13:57.563+0800 E STORAGE  [initandlisten] WiredTiger error (-31804) [1570724037:563615][6008:140721095134288], file:WiredTiger.wt, connection: __wt_panic, 520: the process must exit and restart: WT_PANIC: WiredTiger library panic Raw: [1570724037:563615][6008:140721095134288], file:WiredTiger.wt, connection: __wt_panic, 520: the process must exit and restart: WT_PANIC: WiredTiger library panic
+2019-10-11T00:13:57.563+0800 F -        [initandlisten] Fatal Assertion 50853 at src\mongo\db\storage\wiredtiger\wiredtiger_util.cpp 409
+2019-10-11T00:13:57.563+0800 F -        [initandlisten] 
 
 ***aborting after fassert() failure
 
 
-2019-10-09T10:54:50.899+0800 I  CONTROL  [main] ***** SERVER RESTARTED *****
-2019-10-09T10:54:50.908+0800 I  CONTROL  [main] Automatically disabling TLS 1.0, to force-enable TLS 1.0 specify --sslDisabledProtocols 'none'
-2019-10-09T10:54:50.923+0800 I  CONTROL  [initandlisten] MongoDB starting : pid=3359 port=27017 dbpath=/Volumes/Data/test/www/item/nodeExpress/database/db 64-bit host=emcoo-50deiMac.local
-2019-10-09T10:54:50.923+0800 I  CONTROL  [initandlisten] db version v4.2.0
-2019-10-09T10:54:50.923+0800 I  CONTROL  [initandlisten] git version: a4b751dcf51dd249c5865812b390cfd1c0129c30
-2019-10-09T10:54:50.923+0800 I  CONTROL  [initandlisten] allocator: system
-2019-10-09T10:54:50.923+0800 I  CONTROL  [initandlisten] modules: none
-2019-10-09T10:54:50.923+0800 I  CONTROL  [initandlisten] build environment:
-2019-10-09T10:54:50.923+0800 I  CONTROL  [initandlisten]     distarch: x86_64
-2019-10-09T10:54:50.923+0800 I  CONTROL  [initandlisten]     target_arch: x86_64
-2019-10-09T10:54:50.923+0800 I  CONTROL  [initandlisten] options: { storage: { dbPath: "/Volumes/Data/test/www/item/nodeExpress/database/db" }, systemLog: { destination: "file", logAppend: true, path: "/Volumes/Data/test/www/item/nodeExpress/database/log/mongodb.log" } }
-2019-10-09T10:54:50.924+0800 W  STORAGE  [initandlisten] Detected unclean shutdown - /Volumes/Data/test/www/item/nodeExpress/database/db/mongod.lock is not empty.
-2019-10-09T10:54:50.924+0800 I  STORAGE  [initandlisten] Detected data files in /Volumes/Data/test/www/item/nodeExpress/database/db created by the 'wiredTiger' storage engine, so setting the active storage engine to 'wiredTiger'.
-2019-10-09T10:54:50.924+0800 W  STORAGE  [initandlisten] Recovering data from the last clean checkpoint.
-2019-10-09T10:54:50.924+0800 I  STORAGE  [initandlisten] wiredtiger_open config: create,cache_size=3584M,cache_overflow=(file_max=0M),session_max=33000,eviction=(threads_min=4,threads_max=4),config_base=false,statistics=(fast),log=(enabled=true,archive=true,path=journal,compressor=snappy),file_manager=(close_idle_time=100000),statistics_log=(wait=0),verbose=[recovery_progress,checkpoint_progress],
-2019-10-09T10:54:52.094+0800 I  STORAGE  [initandlisten] WiredTiger message [1570589692:94128][3359:0x7fffc809d3c0], txn-recover: Recovering log 1 through 19
-2019-10-09T10:54:52.136+0800 I  STORAGE  [initandlisten] WiredTiger message [1570589692:136719][3359:0x7fffc809d3c0], txn-recover: Recovering log 2 through 19
-2019-10-09T10:54:52.136+0800 E  STORAGE  [initandlisten] WiredTiger error (2) [1570589692:136777][3359:0x7fffc809d3c0], txn-recover: __posix_open_file, 712: /Volumes/Data/test/www/item/nodeExpress/database/db/journal/WiredTigerLog.0000000002: handle-open: open: No such file or directory Raw: [1570589692:136777][3359:0x7fffc809d3c0], txn-recover: __posix_open_file, 712: /Volumes/Data/test/www/item/nodeExpress/database/db/journal/WiredTigerLog.0000000002: handle-open: open: No such file or directory
-2019-10-09T10:54:52.136+0800 E  STORAGE  [initandlisten] WiredTiger error (-31802) [1570589692:136802][3359:0x7fffc809d3c0], txn-recover: __wt_txn_recover, 770: Recovery failed: WT_ERROR: non-specific WiredTiger error Raw: [1570589692:136802][3359:0x7fffc809d3c0], txn-recover: __wt_txn_recover, 770: Recovery failed: WT_ERROR: non-specific WiredTiger error
-2019-10-09T10:54:52.211+0800 E  STORAGE  [initandlisten] WiredTiger error (0) [1570589692:211074][3359:0x7fffc809d3c0], connection: __wt_cache_destroy, 386: cache server: exiting with 2 pages in memory and 0 pages evicted Raw: [1570589692:211074][3359:0x7fffc809d3c0], connection: __wt_cache_destroy, 386: cache server: exiting with 2 pages in memory and 0 pages evicted
-2019-10-09T10:54:52.211+0800 E  STORAGE  [initandlisten] WiredTiger error (0) [1570589692:211172][3359:0x7fffc809d3c0], connection: __wt_cache_destroy, 391: cache server: exiting with 13126 image bytes in memory Raw: [1570589692:211172][3359:0x7fffc809d3c0], connection: __wt_cache_destroy, 391: cache server: exiting with 13126 image bytes in memory
-2019-10-09T10:54:52.211+0800 E  STORAGE  [initandlisten] WiredTiger error (0) [1570589692:211203][3359:0x7fffc809d3c0], connection: __wt_cache_destroy, 395: cache server: exiting with 15206 bytes in memory Raw: [1570589692:211203][3359:0x7fffc809d3c0], connection: __wt_cache_destroy, 395: cache server: exiting with 15206 bytes in memory
-2019-10-09T10:54:52.211+0800 E  STORAGE  [initandlisten] WiredTiger error (0) [1570589692:211227][3359:0x7fffc809d3c0], connection: __wt_cache_destroy, 402: cache server: exiting with 14995 bytes dirty and 1 pages dirty Raw: [1570589692:211227][3359:0x7fffc809d3c0], connection: __wt_cache_destroy, 402: cache server: exiting with 14995 bytes dirty and 1 pages dirty
-2019-10-09T10:54:52.946+0800 I  STORAGE  [initandlisten] WiredTiger message [1570589692:946577][3359:0x7fffc809d3c0], txn-recover: Recovering log 1 through 20
-2019-10-09T10:54:52.988+0800 I  STORAGE  [initandlisten] WiredTiger message [1570589692:988509][3359:0x7fffc809d3c0], txn-recover: Recovering log 2 through 20
-2019-10-09T10:54:52.988+0800 E  STORAGE  [initandlisten] WiredTiger error (2) [1570589692:988565][3359:0x7fffc809d3c0], txn-recover: __posix_open_file, 712: /Volumes/Data/test/www/item/nodeExpress/database/db/journal/WiredTigerLog.0000000002: handle-open: open: No such file or directory Raw: [1570589692:988565][3359:0x7fffc809d3c0], txn-recover: __posix_open_file, 712: /Volumes/Data/test/www/item/nodeExpress/database/db/journal/WiredTigerLog.0000000002: handle-open: open: No such file or directory
-2019-10-09T10:54:52.988+0800 E  STORAGE  [initandlisten] WiredTiger error (-31802) [1570589692:988590][3359:0x7fffc809d3c0], txn-recover: __wt_txn_recover, 770: Recovery failed: WT_ERROR: non-specific WiredTiger error Raw: [1570589692:988590][3359:0x7fffc809d3c0], txn-recover: __wt_txn_recover, 770: Recovery failed: WT_ERROR: non-specific WiredTiger error
-2019-10-09T10:54:53.055+0800 E  STORAGE  [initandlisten] WiredTiger error (0) [1570589693:55547][3359:0x7fffc809d3c0], connection: __wt_cache_destroy, 386: cache server: exiting with 2 pages in memory and 0 pages evicted Raw: [1570589693:55547][3359:0x7fffc809d3c0], connection: __wt_cache_destroy, 386: cache server: exiting with 2 pages in memory and 0 pages evicted
-2019-10-09T10:54:53.055+0800 E  STORAGE  [initandlisten] WiredTiger error (0) [1570589693:55631][3359:0x7fffc809d3c0], connection: __wt_cache_destroy, 391: cache server: exiting with 13126 image bytes in memory Raw: [1570589693:55631][3359:0x7fffc809d3c0], connection: __wt_cache_destroy, 391: cache server: exiting with 13126 image bytes in memory
-2019-10-09T10:54:53.055+0800 E  STORAGE  [initandlisten] WiredTiger error (0) [1570589693:55661][3359:0x7fffc809d3c0], connection: __wt_cache_destroy, 395: cache server: exiting with 15206 bytes in memory Raw: [1570589693:55661][3359:0x7fffc809d3c0], connection: __wt_cache_destroy, 395: cache server: exiting with 15206 bytes in memory
-2019-10-09T10:54:53.055+0800 E  STORAGE  [initandlisten] WiredTiger error (0) [1570589693:55687][3359:0x7fffc809d3c0], connection: __wt_cache_destroy, 402: cache server: exiting with 14995 bytes dirty and 1 pages dirty Raw: [1570589693:55687][3359:0x7fffc809d3c0], connection: __wt_cache_destroy, 402: cache server: exiting with 14995 bytes dirty and 1 pages dirty
-2019-10-09T10:54:53.807+0800 I  STORAGE  [initandlisten] WiredTiger message [1570589693:807403][3359:0x7fffc809d3c0], txn-recover: Recovering log 1 through 21
-2019-10-09T10:54:53.849+0800 I  STORAGE  [initandlisten] WiredTiger message [1570589693:849315][3359:0x7fffc809d3c0], txn-recover: Recovering log 2 through 21
-2019-10-09T10:54:53.849+0800 E  STORAGE  [initandlisten] WiredTiger error (2) [1570589693:849372][3359:0x7fffc809d3c0], txn-recover: __posix_open_file, 712: /Volumes/Data/test/www/item/nodeExpress/database/db/journal/WiredTigerLog.0000000002: handle-open: open: No such file or directory Raw: [1570589693:849372][3359:0x7fffc809d3c0], txn-recover: __posix_open_file, 712: /Volumes/Data/test/www/item/nodeExpress/database/db/journal/WiredTigerLog.0000000002: handle-open: open: No such file or directory
-2019-10-09T10:54:53.849+0800 E  STORAGE  [initandlisten] WiredTiger error (-31802) [1570589693:849392][3359:0x7fffc809d3c0], txn-recover: __wt_txn_recover, 770: Recovery failed: WT_ERROR: non-specific WiredTiger error Raw: [1570589693:849392][3359:0x7fffc809d3c0], txn-recover: __wt_txn_recover, 770: Recovery failed: WT_ERROR: non-specific WiredTiger error
-2019-10-09T10:54:53.924+0800 E  STORAGE  [initandlisten] WiredTiger error (0) [1570589693:924685][3359:0x7fffc809d3c0], connection: __wt_cache_destroy, 386: cache server: exiting with 2 pages in memory and 0 pages evicted Raw: [1570589693:924685][3359:0x7fffc809d3c0], connection: __wt_cache_destroy, 386: cache server: exiting with 2 pages in memory and 0 pages evicted
-2019-10-09T10:54:53.924+0800 E  STORAGE  [initandlisten] WiredTiger error (0) [1570589693:924772][3359:0x7fffc809d3c0], connection: __wt_cache_destroy, 391: cache server: exiting with 13126 image bytes in memory Raw: [1570589693:924772][3359:0x7fffc809d3c0], connection: __wt_cache_destroy, 391: cache server: exiting with 13126 image bytes in memory
-2019-10-09T10:54:53.924+0800 E  STORAGE  [initandlisten] WiredTiger error (0) [1570589693:924802][3359:0x7fffc809d3c0], connection: __wt_cache_destroy, 395: cache server: exiting with 15206 bytes in memory Raw: [1570589693:924802][3359:0x7fffc809d3c0], connection: __wt_cache_destroy, 395: cache server: exiting with 15206 bytes in memory
-2019-10-09T10:54:53.924+0800 E  STORAGE  [initandlisten] WiredTiger error (0) [1570589693:924828][3359:0x7fffc809d3c0], connection: __wt_cache_destroy, 402: cache server: exiting with 14995 bytes dirty and 1 pages dirty Raw: [1570589693:924828][3359:0x7fffc809d3c0], connection: __wt_cache_destroy, 402: cache server: exiting with 14995 bytes dirty and 1 pages dirty
-2019-10-09T10:54:53.932+0800 W  STORAGE  [initandlisten] Failed to start up WiredTiger under any compatibility version.
-2019-10-09T10:54:53.932+0800 W  STORAGE  [initandlisten] WiredTiger metadata corruption detected
-2019-10-09T10:54:53.932+0800 F  STORAGE  [initandlisten] Please read the documentation for starting MongoDB with --repair here: http://dochub.mongodb.org/core/repair
-2019-10-09T10:54:53.932+0800 F  -        [initandlisten] Fatal Assertion 50944 at src/mongo/db/storage/wiredtiger/wiredtiger_kv_engine.cpp 777
-2019-10-09T10:54:53.932+0800 F  -        [initandlisten] 
-
-***aborting after fassert() failure
-
-
+2019-10-11T00:14:05.750+0800 F -        [initandlisten] Got signal: 22 (SIGABRT).
+mongod.exe    ...\src\mongo\util\stacktrace_windows.cpp(247)                     mongo::printStackTrace+0x43
+mongod.exe    ...\src\mongo\util\signal_handlers_synchronous.cpp(184)            mongo::`anonymous namespace'::printSignalAndBacktrace+0x74
+mongod.exe    ...\src\mongo\util\signal_handlers_synchronous.cpp(240)            mongo::`anonymous namespace'::abruptQuit+0x85
+ucrtbase.dll                                                                     raise+0x1db
+ucrtbase.dll                                                                     abort+0x31
+mongod.exe    ...\src\mongo\util\assert_util.cpp(148)                            mongo::fassertFailedWithLocation+0x181
+mongod.exe    ...\src\mongo\db\storage\wiredtiger\wiredtiger_util.cpp(409)       mongo::`anonymous namespace'::mdb_handle_error_with_startup_suppression+0x204
+mongod.exe    ...\src\third_party\wiredtiger\src\support\err.c(277)              __eventv+0x381
+mongod.exe    ...\src\third_party\wiredtiger\src\support\err.c(331)              __wt_err_func+0x2a
+mongod.exe    ...\src\third_party\wiredtiger\src\support\err.c(537)              __wt_panic+0x40
+mongod.exe    ...\src\third_party\wiredtiger\src\meta\meta_turtle.c(356)         __wt_turtle_read+0x311
+mongod.exe    ...\src\third_party\wiredtiger\src\meta\meta_table.c(304)          __wt_metadata_search+0xcf
+mongod.exe    ...\src\third_party\wiredtiger\src\conn\conn_dhandle.c(48)         __conn_dhandle_config_set+0x22
+mongod.exe    ...\src\third_party\wiredtiger\src\conn\conn_dhandle.c(454)        __wt_conn_dhandle_open+0x75
+mongod.exe    ...\src\third_party\wiredtiger\src\session\session_dhandle.c(546)  __wt_session_get_dhandle+0x116
+mongod.exe    ...\src\third_party\wiredtiger\src\session\session_dhandle.c(538)  __wt_session_get_dhandle+0x1e1
+mongod.exe    ...\src\third_party\wiredtiger\src\session\session_dhandle.c(351)  __wt_session_get_btree_ckpt+0xc4
+mongod.exe    ...\src\third_party\wiredtiger\src\cursor\cur_file.c(828)          __wt_curfile_open+0x1ce
+mongod.exe    ...\src\third_party\wiredtiger\src\session\session_api.c(485)      __session_open_cursor_int+0x2b9
+mongod.exe    ...\src\third_party\wiredtiger\src\session\session_api.c(560)      __wt_open_cursor+0x60
+mongod.exe    ...\src\third_party\wiredtiger\src\meta\meta_table.c(115)          __wt_metadata_cursor+0x99
+mongod.exe    ...\src\third_party\wiredtiger\src\conn\conn_api.c(2767)           wiredtiger_open+0xe73
+mongod.exe    ...\src\mongo\db\storage\wiredtiger\wiredtiger_kv_engine.cpp(666)  mongo::WiredTigerKVEngine::_openWiredTiger+0x96
+mongod.exe    ...\src\mongo\db\storage\wiredtiger\wiredtiger_kv_engine.cpp(585)  mongo::WiredTigerKVEngine::WiredTigerKVEngine+0x981
+mongod.exe    ...\src\mongo\db\storage\wiredtiger\wiredtiger_init.cpp(106)       mongo::`anonymous namespace'::WiredTigerFactory::create+0x289
+mongod.exe    ...\src\mongo\db\storage\storage_engine_init.cpp(193)              mongo::initializeStorageEngine+0xa31
+mongod.exe    ...\src\mongo\db\db.cpp(339)                                       mongo::`anonymous namespace'::_initAndListen+0x707
+mongod.exe    ...\src\mongo\db\db.cpp(688)                                       mongo::`anonymous namespace'::initAndListen+0x27
+mongod.exe    ...\src\mongo\db\db.cpp(1066)                                      mongo::mongoDbMain+0x232
+mongod.exe    ...\src\mongo\db\dbmain.cpp(47)                                    wmain+0x35
+mongod.exe    f:\dd\vctools\crt\vcstartup\src\startup\exe_common.inl(253)        __scrt_common_main_seh+0x11d
+KERNEL32.DLL                                                                     BaseThreadInitThunk+0x14
+2019-10-11T00:14:05.750+0800 F CONTROL  [initandlisten] *** unhandled exception 0x0000000E at 0x00007FFC2DF6A388, terminating
+2019-10-11T00:14:05.750+0800 F CONTROL  [initandlisten] *** stack trace for unhandled exception:
+2019-10-11T00:14:05.754+0800 I -        [initandlisten] KERNELBASE.dll                                                                     RaiseException+0x68
+mongod.exe      ...\src\mongo\util\signal_handlers_synchronous.cpp(241)            mongo::`anonymous namespace'::abruptQuit+0x9d
+ucrtbase.dll                                                                       raise+0x1db
+ucrtbase.dll                                                                       abort+0x31
+mongod.exe      ...\src\mongo\util\assert_util.cpp(148)                            mongo::fassertFailedWithLocation+0x181
+mongod.exe      ...\src\mongo\db\storage\wiredtiger\wiredtiger_util.cpp(409)       mongo::`anonymous namespace'::mdb_handle_error_with_startup_suppression+0x204
+mongod.exe      ...\src\third_party\wiredtiger\src\support\err.c(277)              __eventv+0x381
+mongod.exe      ...\src\third_party\wiredtiger\src\support\err.c(331)              __wt_err_func+0x2a
+mongod.exe      ...\src\third_party\wiredtiger\src\support\err.c(537)              __wt_panic+0x40
+mongod.exe      ...\src\third_party\wiredtiger\src\meta\meta_turtle.c(356)         __wt_turtle_read+0x311
+mongod.exe      ...\src\third_party\wiredtiger\src\meta\meta_table.c(304)          __wt_metadata_search+0xcf
+mongod.exe      ...\src\third_party\wiredtiger\src\conn\conn_dhandle.c(48)         __conn_dhandle_config_set+0x22
+mongod.exe      ...\src\third_party\wiredtiger\src\conn\conn_dhandle.c(454)        __wt_conn_dhandle_open+0x75
+mongod.exe      ...\src\third_party\wiredtiger\src\session\session_dhandle.c(546)  __wt_session_get_dhandle+0x116
+mongod.exe      ...\src\third_party\wiredtiger\src\session\session_dhandle.c(538)  __wt_session_get_dhandle+0x1e1
+mongod.exe      ...\src\third_party\wiredtiger\src\session\session_dhandle.c(351)  __wt_session_get_btree_ckpt+0xc4
+mongod.exe      ...\src\third_party\wiredtiger\src\cursor\cur_file.c(828)          __wt_curfile_open+0x1ce
+mongod.exe      ...\src\third_party\wiredtiger\src\session\session_api.c(485)      __session_open_cursor_int+0x2b9
+mongod.exe      ...\src\third_party\wiredtiger\src\session\session_api.c(560)      __wt_open_cursor+0x60
+mongod.exe      ...\src\third_party\wiredtiger\src\meta\meta_table.c(115)          __wt_metadata_cursor+0x99
+mongod.exe      ...\src\third_party\wiredtiger\src\conn\conn_api.c(2767)           wiredtiger_open+0xe73
+mongod.exe      ...\src\mongo\db\storage\wiredtiger\wiredtiger_kv_engine.cpp(666)  mongo::WiredTigerKVEngine::_openWiredTiger+0x96
+mongod.exe      ...\src\mongo\db\storage\wiredtiger\wiredtiger_kv_engine.cpp(585)  mongo::WiredTigerKVEngine::WiredTigerKVEngine+0x981
+mongod.exe      ...\src\mongo\db\storage\wiredtiger\wiredtiger_init.cpp(106)       mongo::`anonymous namespace'::WiredTigerFactory::create+0x289
+mongod.exe      ...\src\mongo\db\storage\storage_engine_init.cpp(193)              mongo::initializeStorageEngine+0xa31
+mongod.exe      ...\src\mongo\db\db.cpp(339)                                       mongo::`anonymous namespace'::_initAndListen+0x707
+mongod.exe      ...\src\mongo\db\db.cpp(688)                                       mongo::`anonymous namespace'::initAndListen+0x27
+mongod.exe      ...\src\mongo\db\db.cpp(1066)                                      mongo::mongoDbMain+0x232
+mongod.exe      ...\src\mongo\db\dbmain.cpp(47)                                    wmain+0x35
+mongod.exe      f:\dd\vctools\crt\vcstartup\src\startup\exe_common.inl(253)        __scrt_common_main_seh+0x11d
+KERNEL32.DLL                                                                       BaseThreadInitThunk+0x14
+2019-10-11T00:14:05.755+0800 I CONTROL  [initandlisten] writing minidump diagnostic file D:\MongoDB\bin\mongod.2019-10-10T16-14-05.mdmp
+2019-10-11T00:14:06.067+0800 F CONTROL  [initandlisten] *** immediate exit due to unhandled exception

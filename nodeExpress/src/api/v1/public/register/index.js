@@ -17,11 +17,11 @@ function post(req, res, config) {
     } else if (name === password) {
         res.info('密码不能与用户名相同')
     }
+
     res.ApiDb.find({
         table: config.db.table.user,
         find: { $or: [{ name }, { phone: name }, { email: name }] },
     }, (err, data, count) => {
-
         if (data.length > 1) {
             res.info('该账号已存在，请重新输入')
         } else {

@@ -8,17 +8,17 @@ const path = require('path');
 module.exports = api()
 function api() {
     let root = config.root + '/bin/functions'
-    let arr = {}
+    let obj = {}
     // 查询接口目录文件
     fs.readdirSync(root).forEach(e => {
         if (e !== 'index.js') {
             let files = path.resolve(root, e);
             if (fs.statSync(files).isFile()) {
-                arr[e.match(/\w+(?=\.)/img)[0]] = require(files)
+                obj[e.match(/\w+(?=\.)/img)[0]] = require(files)
             }
         }
     });
-    return arr;
+    return obj;
 }
 
 

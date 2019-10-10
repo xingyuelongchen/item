@@ -9,22 +9,28 @@ const database = require("../database");
  * 
  */
 function insert(table, data, callback) {
-    if (!data || data.constructor != Object || !table) {
-        console.log('insert:没有传入正确的数据');
-        return;
-    }
-    database(fn);
-    function fn(db) {
-        db.collection(table).insertOne(data, function (err, e) {
-            if (err) {
-                callback(err)
-                console.log('数据错误' + __dirname + ': ', err);
-            } else {
-                callback(null, e)
-                // console.log({ message: '数据插入成功' })
-            }
-        });
-    }
+    let promise = new Promise((resolve, rejcet) => {
+        if (!data || data.constructor != Object || !table) {
+            console.log('insert:没有传入正确的数据');
+            rejcet('insert 参数错误');
+            callback && callback('insert 参数错误')
+            return;
+        }
+        database(fn);
+        function fn(db) {
+            db.collection(table).insertOne(data, function (err, e) {
+                if (err) {
+                    reject(err);
+                    callback && callback(err)
+                    console.log('数据错误' + __dirname + ': ', err);
+                } else {
+                    resolve(e);
+                    callback && callback(null, e);
+                }
+            });
+        }
+    });
+    return promise;
 }
 /**
  * 
@@ -33,63 +39,82 @@ function insert(table, data, callback) {
  */
 
 function find(option, fn) {
-    if (option && (option.constructor == Object) && fn && fn.constructor == Function) {
-        const table = option.table || '';
-        const find = option.find || {};
-        const sort = option.sort || {};
-        const skip = option.skip || 0;
-        const limit = option.limit || 50;
-        database((db) => {
-            db.collection(table).find(find).count().then(e => {
-                let count = Math.ceil(e / limit);
-                let len = limit ? 1 : count;
-                let dataArr = [];
-                for (let i = 0; i < len; i++) {
-                    dataArr.push(db.collection(table).find(find).sort(sort).skip(skip).limit(limit).toArray())
-                }
-
-                Promise.all(dataArr).then(e => {
-                    let data = [];
-                    e.forEach(e => {
-                        if (e.constructor == Array) {
-                            e.map(e => {
+    return new Promise((resolve, reject) => {
+        if (option && (option.constructor == Object)) {
+            const table = option.table || '';
+            const find = option.find || {};
+            const sort = option.sort || {};
+            const skip = option.skip || 0;
+            const limit = option.limit || 50;
+            database((db) => {
+                db.collection(table).find(find).count().then(e => {
+                    let count = Math.ceil(e / limit);
+                    let len = limit ? 1 : count;
+                    let dataArr = [];
+                    for (let i = 0; i < len; i++) {
+                        dataArr.push(db.collection(table).find(find).sort(sort).skip(skip).limit(limit).toArray())
+                    }
+                    Promise.all(dataArr).then(e => {
+                        let data = [];
+                        e.forEach(e => {
+                            if (e.constructor == Array) {
+                                data = [...data, ...e];
+                            } else {
                                 data.push(e)
-                            });
+                            }
+                        });
+                        if (fn && fn.constructor == Function) {
+                            fn(null, data, count);
                         } else {
-                            data.push(e)
+                            resolve(data)
                         }
-                    });
-                    fn(null, data, count);
-                })
-                    .catch(err => {
-                        console.log(err)
                     })
+                        .catch(err => {
+                            reject(err)
+                        })
+                });
             });
-        });
-    } else {
-        fn('请传入必要的参数');
+        } else {
+            if (fn && fn.constructor == Function) {
+                fn(err)
+            } else {
+                reject('参数错误')
+            }
+        }
+    })
 
-    }
 }
 
 
 function query(option, fn) {
-    if (option && (option.constructor == Object) && fn && fn.constructor == Function) {
-        const table = option.table || '';
-        const find = option.find || {};
-        const sort = option.sort || {};
-        const skip = option.skip*20 || 0;
-        const limit = option.limit || 20;
-        database((db) => {
-            db.collection(table).find(find).count().then(totalPages => {
-                let totalNumber = Math.ceil(totalPages / limit);
-                let pagesNumber = 20;
-                db.collection(table).find(find).sort(sort).skip(skip).limit(limit).toArray((err, data) => {
-                    fn(null, { totalNumber, pagesNumber, data })
+    let promise = new Promise((resolve, reject) => {
+        if (option && (option.constructor == Object)) {
+            const table = option.table || '';
+            const find = option.find || {};
+            const sort = option.sort || {};
+            const skip = option.skip * 20 || 0;
+            const limit = option.limit || 20;
+            database((db) => {
+                db.collection(table).find(find).count().then(totalPages => {
+                    let totalNumber = Math.ceil(totalPages / limit);
+                    let pagesNumber = 20;
+                    db.collection(table).find(find).sort(sort).skip(skip).limit(limit).toArray((err, data) => {
+
+                        if (fn && fn.constructor == Function && !err) {
+                            fn(null, { totalNumber, pagesNumber, data })
+                        } else if (!err) {
+                            resolve({ totalNumber, pagesNumber, data })
+                        } else if (err) {
+                            reject(err);
+                            fn && fn(err);
+                        }
+
+                    })
                 })
             })
-        })
-    }
+        }
+    });
+    return promise;
 }
 
 /**
@@ -104,19 +129,28 @@ function query(option, fn) {
  */
 
 function update(option, fn) {
-    if (option && (option.constructor == Object) && fn && fn.constructor == Function) {
-        const table = option.table || '';
-        const find = option.find || {};
-        const value = option.value || {};
-        database((db) => {
-            db.collection(table).updateMany(find, { $set: value }, function (err, result) {
-                fn(err, result.result)
+    let promise = new Promise((resolve, reject) => {
+        if (option && (option.constructor == Object)) {
+            const table = option.table || '';
+            const find = option.find || {};
+            const value = option.value || {};
+            database((db) => {
+                db.collection(table).updateMany(find, { $set: value }, function (err, result) {
+                    if (fn && fn.constructor == Function) {
+                        fn(err, result.result)
+                    } else if (!err) {
+                        resolve(result.result)
+                    } else {
+                        reject(err);
+                        fn && fn(err);
+                    }
+                })
             })
-        })
-    } else {
-        fn('请传入必须的参数')
-    }
-    return true;
+        } else {
+            console.log(__dirname, ': ', '更新数据库参数错误')
+        }
+    });
+    return promise;
 }
 /**
 * 
@@ -130,15 +164,25 @@ function update(option, fn) {
  */
 
 function del(option, fn) {
-    if (option && (option.constructor == Object) && fn && fn.constructor == Function) {
-        const table = option.table || '';
-        const find = option.find || {};
-        database((db) => {
-            db.collection(table).deleteMany(find, false, function (err, result) {
-                fn(err, result.result)
+    let promise = new Promise((resolve, reject) => {
+        if (option && (option.constructor == Object)) {
+            const table = option.table || '';
+            const find = option.find || {};
+            database((db) => {
+                db.collection(table).deleteMany(find, false, function (err, result) {
+                    if (fn && fn.constructor == Function && !err) {
+                        fn(err, result.result)
+                    } else if (!err) {
+                        resolve(result.result)
+                    } else {
+                        reject(err);
+                        fn && fn(err);
+                    }
+                })
             })
-        })
-    }
+        }
+    });
+    return promise;
 }
 
 module.exports = { insert, update, del, find, database, query }
